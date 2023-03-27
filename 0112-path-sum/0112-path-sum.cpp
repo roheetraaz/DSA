@@ -14,14 +14,14 @@ class Solution
     public:
         bool hasPathSum(TreeNode *root, int targetSum)
         {
-             if (!root) return false;
+                 if (!root) return false;
             stack<pair<TreeNode*, int>> st;
             st.push({ root, targetSum});
             while (!st.empty())
             {
                 auto[temp, target] = st.top();
                 st.pop();
-                // target = target- temp->val; why not this
+                int target2 = target- temp->val;
                 if (!temp->right && !temp->left)
                 {
                     if (target == temp->val)
@@ -32,11 +32,11 @@ class Solution
                 }
                 if (temp->right)
                 {
-                    st.push({ temp->right,target-temp->val });
+                    st.push({ temp->right,target2});
                 }
                 if (temp->left)
                 {
-                    st.push({ temp->left,target-temp->val });
+                    st.push({ temp->left,target2});
                 }
             }
             return false;
