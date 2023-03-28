@@ -8,9 +8,7 @@ public:
         while(start<end){
             
             int mid=(start+end)/2;
-            if(nums[mid]==x){
-                return mid;
-            }
+         
             if(nums[mid]<x){
                 start=mid+1;
             }
