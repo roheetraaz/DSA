@@ -15,7 +15,7 @@ class Solution
                 int x = ceil(log2(i));
                 if (dp[i] != 1)
                 {
-                    dp[i] = min((dp[pow(2, x) - i] + dp[pow(2, x)]), (dp[i - pow(2, x - 1)] + dp[pow(2, x - 1)]));
+                    dp[i] = min(dp[pow(2, x) - i], dp[i - pow(2, x - 1)])+1;
                 }
             }
             return dp[n];
