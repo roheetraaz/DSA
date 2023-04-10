@@ -11,8 +11,8 @@ class Solution
            	//          sy=sy%sx;
            	//  }       
            	//  else sx=sx%sy;}
-            int mini = min(sx, sy);
-            int maxi = max(sx, sy);
+            // int mini = min(sx, sy);
+            // int maxi = max(sx, sy);
             while (tx >= sx && ty >= sy)
             {
               if (tx < ty)
