@@ -1,22 +1,21 @@
 class Solution {
 public:
     int maxDivScore(vector<int>& nums, vector<int>& divisors) {
-        int n=divisors.size();
-        int m =nums.size();
-        int maxxi=0;
-        if(n==1){
-                return divisors[0];
-        }
-        vector<pair<int,int>>ans;
-        for(int i=0;i<n;i++){
+                
+            
+            
+            vector<pair<int,int>>ans;
+            for(int i=0;i<divisors.size();i++){
+                
                 int count=0;
-                for(int j=0;j<m;j++)
-                {
+                for(int j=0;j<nums.size();j++){
                         if(nums[j]%divisors[i]==0){
                                 count++;
-                        } 
+                        }
+                  
                 }
-                cout<<maxxi<<" "<<divisors[i]<<endl;
+                // maxi=max(count,maxi);
+               
                 ans.push_back({count,divisors[i]});
         }
          sort(ans.begin(),ans.end());
@@ -29,6 +28,6 @@ public:
                          break;
                  }
          }
-         return final[0];
+           return final[0];
     }
 };
