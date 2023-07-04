@@ -9,9 +9,7 @@ public:
                         mp.erase(i);
                 }
         }
-        for(auto i : mp){
-         return i.first;
-        }
-        return 0;
+      
+        return mp.begin()->first;
     }
 };
