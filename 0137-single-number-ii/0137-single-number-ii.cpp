@@ -9,10 +9,9 @@ public:
                         mp.erase(i);
                 }
         }
-        int ans=0;
         for(auto i : mp){
-                ans=i.first;
+         return i.first;
         }
-            return ans;
+        return 0;
     }
 };
