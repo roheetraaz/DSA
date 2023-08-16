@@ -3,25 +3,26 @@ class Solution
     public:
         int longestConsecutive(vector<int> &nums)
         {
-            set<int>s;
-            for(auto i :nums)s.insert(i);
-            int n = nums.size();
-            int x = INT_MAX;
-            int ans=0;
-
-            int count=1;
-            for (auto i :s)
+            unordered_set<int> s;
+            for (auto i: nums) s.insert(i);
+            int ans = 0;
+            int count = 1;
+            for (auto i: s)
             {
-                if (i-1 == x )
+                int x = i;
+                // to check if this element is taken into account or not
+                if (s.find(i - 1) == s.end())
                 {
-                    count++;
-                    
+                    count = 1;
+                    x = i;
+
+                    while (s.find(x + 1) != s.end())
+                    {
+                        count++;
+                        x = x + 1;
+                    }
                 }
-                else{
-                    count=1;
-                }
-                x = i;
-                ans=max(count,ans);
+                ans = max(count, ans);
             }
             return ans;
         }
