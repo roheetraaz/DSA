@@ -1,32 +1,32 @@
 class Solution
 {
     public:
-            vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        
-        sort(intervals.begin(), intervals.end());
-        
-        vector<vector<int>> merged;
-        
-        int start = intervals[0][0];
-        int end = intervals[0][1];
-        
-        for(int i = 1; i<intervals.size(); i++)
+        vector<vector < int>> merge(vector<vector < int>> &intervals)
         {
-            if(intervals[i][0] <= end)
+            vector<vector < int>> ans;
+            sort(intervals.begin(),intervals.end());
+
+            int n = intervals.size();
+            int x=intervals[0][0];
+            int y=intervals[0][1];
+         
+            for (int i = 1; i < n; i++)
             {
-                end = max(end, intervals[i][1]);
-            }
-            else
-            {
-                merged.push_back({start,end});
+                if (intervals[i][0] <=y )
+                {
+                    y = max(y,intervals[i][1]);
+                }
+          
+                else {
+                    ans.push_back({x,y});
+                    x=intervals[i][0]; y=intervals[i][1];
+                }
                 
-                start = intervals[i][0];
-                end = intervals[i][1];
+             
             }
+            
+                ans.push_back({x,y});
+            
+            return ans;
         }
-        
-        merged.push_back({start,end});
-        
-        return merged;
-    }
 };
