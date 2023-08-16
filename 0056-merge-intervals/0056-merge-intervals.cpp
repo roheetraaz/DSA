@@ -7,26 +7,38 @@ class Solution
             sort(intervals.begin(),intervals.end());
 
             int n = intervals.size();
-            int x=intervals[0][0];
-            int y=intervals[0][1];
-         
-            for (int i = 1; i < n; i++)
+            int x=-1;
+            int y=-1;
+            if(n==1){
+                return intervals;
+            }
+            for (int i = 0; i < n-1; i++)
             {
-                if (intervals[i][0] <=y )
+                if(x==-1){
+                    x=intervals[i][0];
+
+                }
+                if(y==-1){
+                    y=intervals[i][1];
+                }
+                if (y >= intervals[i + 1][0])
                 {
-                    y = max(y,intervals[i][1]);
+                    y = max(y,intervals[i + 1][1]);
                 }
           
-                else {
+                else if(y!=-1){
                     ans.push_back({x,y});
-                    x=intervals[i][0]; y=intervals[i][1];
+                    x=-1; y=-1;
                 }
-                
+                if(i==n-2){
+                    if(x!=-1 && y!=-1)
+                    ans.push_back({x,y});
+                }
              
             }
-            
-                ans.push_back({x,y});
-            
+            if(y==-1 && x==-1){
+                ans.push_back({intervals[n-1][0], intervals[n-1][1]});
+            }
             return ans;
         }
 };
