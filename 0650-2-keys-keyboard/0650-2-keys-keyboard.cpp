@@ -17,14 +17,14 @@ class Solution
                     if (j % i == 0)
                     {
 
-                        mini = min((i + (j / i)), mini);
+                        mini = min((i + (j / i)), min(mini,j));
                         if (dp[j] == 0)
                         {
-                            dp[j] = min((dp[i] + (j / i)), min(mini, j));
+                            dp[j] = min((dp[i] + (j / i)),mini);
                         }
                         else
                         {
-                            dp[j] = min((dp[i] + (j / i)), min(mini, min(dp[j], j)));
+                            dp[j] = min((dp[i] + (j / i)), min(mini,dp[j]));
                         }
                     }
                 }
