@@ -1,35 +1,32 @@
-class Solution
-{
-    public:
-        int minSteps(int n)
-        {
+class Solution {
+private:
+    int dp[1010][1010];
+    int n;
 
-            if (n == 1) return 0;
-            vector<int> dp(n + 1, 0);
-            dp[0] = 0;
-            dp[1] = 0;
-            dp[2] = 2;
-            for (int j = 3; j <= n; j++)
-            {
-                int mini = INT_MAX;
-                for (int i = 1; i <= j; i++)
-                {
-                    if (j % i == 0)
-                    {
+    int rec(int cur , int prev){
+        if(cur > n)return 1e9;
 
-                        mini = min((i + (j / i)), min(mini,j));
-                        if (dp[j] == 0)
-                        {
-                            dp[j] = min((dp[i] + (j / i)),mini);
-                        }
-                        else
-                        {
-                            dp[j] = min((dp[i] + (j / i)), min(mini,dp[j]));
-                        }
-                    }
-                }
-            }
+        if(cur == n )return 0;
 
-            return dp[n];
-        }
+        if(dp[cur][prev] != -1)return dp[cur][prev];
+
+        int ans = 1e9;
+        //paste
+        if(prev > 0)
+        ans = min(ans , 1 + rec(cur + prev, prev));
+        //copy
+        if(cur != prev)ans = min(ans , 1 + rec(cur,cur));
+
+        return dp[cur][prev] = ans;
+    }
+public:
+    int minSteps(int x) {
+        n = x;
+        memset(dp,-1,sizeof(dp));\
+        
+        int ans = rec(1,0);
+
+        // cout<<ans;
+        return ans ;
+    }
 };
