@@ -15,13 +15,13 @@ class Solution
 
             while (x > 26)
             {
-                int quo = x % 26;
-                if (quo == 0)
+                int rem = x % 26;
+                if (rem == 0)
                 {
                     ans += mp[26];
                     x = x - 26;
                 }
-                else ans += mp[quo];
+                else ans += mp[rem];
                 x = x / 26;
             }
             ans += mp[x];
