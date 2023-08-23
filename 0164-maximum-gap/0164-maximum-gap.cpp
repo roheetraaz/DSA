@@ -3,22 +3,12 @@ class Solution
     public:
         int maximumGap(vector<int> &nums)
         {
-            set<int> mp;
-            for (auto i: nums) mp.insert(i);
-            int prev = -1;
-            int ans = INT_MIN;
-            for (auto i: mp)
-            {
-                if (prev == -1)
-                {
-                    prev = i;
-                }
-                else
-                {
-                    ans = max(ans, i - prev);
-                    prev = i;
-                }
+            sort(nums.begin(), nums.end());
+            int n=nums.size();
+            int maxi=0;
+            for(int i=1;i<n;i++){
+                maxi=max(maxi,nums[i]-nums[i-1]);
             }
-            return ans == INT_MIN ? 0 : ans;
+            return maxi;
         }
 };
