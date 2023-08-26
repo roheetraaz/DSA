@@ -1,16 +1,18 @@
-class Solution { // 8 ms, faster than 91.61%
-public:
-    int lengthOfLIS(vector<int>& nums) {
-        vector<int> sub;
-        for (int x : nums) {
-            if (sub.empty() || sub[sub.size() - 1] < x) {
-                sub.push_back(x);
-                cout<<x<<endl;
-            } else {
-                auto it = lower_bound(sub.begin(), sub.end(), x); // Find the index of the first element >= x
-                *it = x; // Replace that number with x
+class Solution
+{
+    public:
+        int lengthOfLIS(vector<int> &nums)
+        {
+            vector<int> dp(nums.size(), 1);
+
+            for (int i = 0; i < nums.size(); i++)
+            {
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if (dp[i] < dp[j] + 1 && nums[i] > nums[j]) dp[i] = dp[j] + 1;
+                }
             }
+
+            return* max_element(dp.begin(), dp.end());
         }
-        return sub.size();
-    }
 };
