@@ -1,37 +1,23 @@
 class Solution
 {
-    public:
-        int solve(int idx, vector<vector < int>> &offers, vector< int > &dp)
-        {
+public:
+    int solve(int idx, const vector<vector<int>> &offers, vector<int> &dp)
+    {
+        if (idx == offers.size()) return 0;
+        if (dp[idx] != -1) return dp[idx];
 
-            if (idx == offers.size()) return 0;
-            if (dp[idx] != -1) return dp[idx];
+        int notTake = solve(idx + 1, offers, dp);
 
-            int notTake = solve(idx + 1, offers, dp);
+        vector<int> target = {offers[idx][1], INT_MAX};  // Use INT_MAX for upper_bound
+        auto low = upper_bound(offers.begin(), offers.end(), target);
 
-            int low = idx + 1, high = offers.size() - 1;
-            int next_idx = offers.size();
+        int next_idx = low - offers.begin();
+        int take = 1 + solve(next_idx, offers, dp);
 
-           	// finding the idx for the next offer if we take idx as the current offer
-            while (low <= high)
-            {
-                int mid = (low + high) / 2;
-                if (offers[mid][0] > offers[idx][1])
-                {
-                    high = mid - 1;
-                    next_idx = mid;
-                }
-                else
-                {
-                    low = mid + 1;
-                }
-            }
+        return dp[idx] = max(take, notTake);
+    }
 
-           	// peforming this &use binary search to find the next idx to perform;
-            int take = 1 + solve(next_idx, offers, dp);
-            return dp[idx] = max(take, notTake);
-        }
-    int findLongestChain(vector<vector < int>> &pairs)
+    int findLongestChain(vector<vector<int>> &pairs)
     {
         sort(pairs.begin(), pairs.end());
         int m = pairs.size();
