@@ -1,26 +1,19 @@
 class Solution
 {
+	// 0 ms, faster than 100.00%
     public:
-        int dp[100100];
-    int solve(int ind, string s)
-    {
-        if (ind > s.size()) return 0;
-        if (ind == s.size()) return 1;
-        if (dp[ind] != -1) return dp[ind];
-        int ans = 0;
-
-        if (s[ind] == '0') return dp[ind] = 0;
-
-        else if (s[ind] == '1' or (s[ind] == '2' && (ind + 1) < s.size() && s[ind + 1] <= '6'))
+        int numDecodings(const string &s)
         {
-            ans += solve(ind + 1, s) + solve(ind + 2, s);
+            int n = s.size();
+            vector<int> dp(n + 1, 0);
+            dp[n] = 1;
+            for (int i = n - 1; i >= 0; --i)
+            {
+                if (s[i] != '0')	// Single digit
+                    dp[i] += dp[i + 1];
+                if (i + 1 < s.size() && (s[i] == '1' || s[i] == '2' && s[i + 1] <= '6'))	// Two digits
+                    dp[i] += dp[i + 2];
+            }
+            return dp[0];
         }
-        else ans += solve(ind + 1, s);
-        return dp[ind] = ans;
-    }
-    int numDecodings(string s)
-    {
-        memset(dp, -1, sizeof(dp));
-        return solve(0, s);
-    }
 };
