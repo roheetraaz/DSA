@@ -1,48 +1,39 @@
 class Solution
 {
     public:
-        bool check(vector<int> currBox, vector<int> newBox)
+    int dp[101][101];
+    vector<vector<int>>arr;
+        bool check(int curr, int prev)
         {
-            if (currBox[0] >= newBox[0] && currBox[1] >= newBox[1] && currBox[2] >= newBox[2])
-                return true;
-            else
-                return false;
+           if(arr[curr][0]>=arr[prev][0] && arr[curr][1]>=arr[prev][1] && arr[curr][2]>=arr[prev][2]  )return true;
+           return false;
         }
-    int solveTab(vector<vector < int>> &nums, int n)
+    int lis(int cur, int prev)
     {
-        vector<int> currrow(n + 1, 0);
-        vector<int> nextrow(n + 1, 0);
-        for (int curr = n - 1; curr >= 0; curr--)
+
+        if (cur == arr.size()) return 0;
+
+        if (dp[cur][prev + 1] != -1) return dp[cur][prev + 1];
+
+        int ans = lis(cur + 1, prev);
+
+        if (prev == -1 or check(cur, prev))
         {
-            for (int prev = curr - 1; prev >= -1; prev--)
-            {
-               	// INCLUDE THE HEIGHT 
-                int take = 0;
-                if (prev == -1 || check(nums[curr], nums[prev]))	//
-                    take = nums[curr][2] + nextrow[curr + 1];
-
-               	// EXCLUDE THE HEIGHT
-                int notake = 0 + nextrow[prev + 1];
-
-                currrow[prev + 1] = max(take, notake);
-            }
-           	// after ervy iteration upper row will be equal to currrow 
-            nextrow = currrow;
+            ans = max(ans, arr[cur][2] + lis(cur + 1, cur));
         }
-        return nextrow[0];
+
+        return dp[cur][prev + 1] = ans;
     }
 
     int maxHeight(vector<vector < int>> &cuboids)
     {
-       	// sort each cuboid 
         for (auto &a: cuboids)
         {
             sort(a.begin(), a.end());
         }
-
-       	// sort cuboids on the basis of l or w
         sort(cuboids.begin(), cuboids.end());
-
-        return solveTab(cuboids, cuboids.size());
+        arr=cuboids;
+        memset(dp,-1,sizeof(dp));
+        return lis(0,-1);
     }
 };
