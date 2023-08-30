@@ -9,7 +9,7 @@ class Solution
             string str = "AEIOUaeiou";
             string s = st;
             unordered_map<int, int> mp;
-            for (auto l: str) mp[l]++;
+            for (char l: str) mp[l]++;
             int j = n - 1;
             while (i < j)
             {
