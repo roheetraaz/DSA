@@ -17,7 +17,8 @@ class Solution
                     *it = x;
                    	// Replace that number with x
                 }
+                if(sub.size()>=3)return true;
             }
-            return sub.size() >= 3;
+            return false;
         }
 };
