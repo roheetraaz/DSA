@@ -9,17 +9,28 @@
  *TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  *};
  */
-class Solution {
-    int ans=0;
-    void pre(TreeNode* root,int max){
-        if(!root)return;
-        if(root->val >= max){ ans++; max=root->val; }
-        pre(root->left,max);
-        pre(root->right,max);
+class Solution
+{
+    public:
+        int ans;
+    void rec(TreeNode *tr,int x1)
+    {
+        if (tr == NULL) return;
+        if (tr->val >= x1)
+        {
+            x1 = tr->val;
+            ans++;
+        }
+
+        rec(tr->left,x1);
+        rec(tr->right,x1);
     }
-public:
-    int goodNodes(TreeNode* root) {
-        pre(root,INT_MIN);
+
+    int goodNodes(TreeNode *root)
+    {
+        int x1 = root->val;
+        ans = 0;
+        rec(root,x1);
         return ans;
     }
 };
