@@ -16,9 +16,9 @@ class Solution
             ListNode *nexti = NULL;
             ListNode *prev = NULL;
             ListNode *ans = new ListNode(0);
-            ListNode * res=ans;
-            int x=left;
-            while (left - 1 && head!=NULL)
+            ListNode *res = ans;
+            int x = left;
+            while (left - 1 && head != NULL)
             {
                 ans->next = new ListNode(head->val);
                 ans = ans->next;
@@ -26,9 +26,9 @@ class Solution
 
                 left--;
             }
-       
-            right = right - x+1;
-            while (head != NULL && right )
+
+            right = right - x + 1;
+            while (head != NULL && right > 0)
             {
                 nexti = head->next;
                 head->next = prev;
