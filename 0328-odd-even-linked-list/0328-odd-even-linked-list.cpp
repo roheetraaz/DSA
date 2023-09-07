@@ -24,7 +24,6 @@ class Solution
             while (head != NULL && head->next != NULL)
             {
                 ans1->next = new ListNode(head->val);
-                cout << head->val;
                 ans1 = ans1->next;
                 head = head->next->next;
             }
