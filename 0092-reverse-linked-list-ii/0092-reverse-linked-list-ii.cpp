@@ -28,7 +28,7 @@ class Solution
             }
        
             right = right - x+1;
-            while (head != NULL && right >0)
+            while (head != NULL && right )
             {
                 nexti = head->next;
                 head->next = prev;
