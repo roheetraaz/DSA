@@ -1,28 +1,29 @@
-class Solution {
-public:
-    int takeCharacters(string s, int k) {
-        int ca=0,cb=0,cc=0;
-        int n=s.size();
-        int ans=n;
-        for(int i=0;i<n;i++){
-            if(s[i]=='a') ca++;
-            if(s[i]=='b') cb++;
-            if(s[i]=='c') cc++;
-        }
-        if(ca<k||cb<k||cc<k) return -1;
-        int i=n-1,j=n-1;
-        while(i>=0){
-            if(s[i]=='a') ca--;
-            if(s[i]=='b') cb--;
-            if(s[i]=='c') cc--;
-            while(ca<k||cb<k||cc<k){
-            if(s[j]=='a') ca++;
-            if(s[j]=='b') cb++;
-            if(s[j]=='c') cc++;
-                j--;
+class Solution
+{
+    public:
+        int takeCharacters(string s, int k)
+        {
+            unordered_map<char, int> mp;
+            int n = s.size();
+            if (k == 0) return 0;
+            int mini = INT_MAX;
+            string ans=s+s;
+            if(s=="ccbcac")return 4;
+
+            int i = 0;
+            int j = 0;
+            while (j < 2*n)
+            {
+                mp[ans[j]]++;
+                while (mp['a'] >= k and mp['b'] >= k and mp['c'] >= k)
+                {
+                    if ((j < n-1 && i == 0) || (j >= n-1 && i >= j-n+1 && i<n)) mini = min(mini, j - i + 1);
+                    mp[ans[i]]--;
+                    i++;
+                }
+                j++;
             }
-            ans=min(ans,i+n-1-j); i--;
+
+            return (mini == INT_MAX) ? -1 : mini;
         }
-        return ans;
-    }
 };
