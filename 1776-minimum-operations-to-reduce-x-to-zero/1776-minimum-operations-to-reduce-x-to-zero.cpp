@@ -3,25 +3,32 @@ class Solution
     public:
         int minOperations(vector<int> &nums, int x)
         {
+            int n = nums.size();
             int sum = 0;
-            for (auto i: nums) sum += i;
-            int num = sum - x;
-            if (num < 0) return -1;
-            if (num == 0) return nums.size();
-            int ans = INT_MIN;
-            int left = 0, right = 0, curr = 0;
-            while (right < nums.size())
+            vector<int> s = nums;
+            for (auto i: nums) s.push_back(i);
+            nums = s;
+            int ans = INT_MAX;
+            int i = 0, j = 0, curr = 0;
+            while (j < nums.size())
             {
-                curr += nums[right];
+                curr += nums[j];
 
-                while (curr > num)
+                while (curr > x)
                 {
-                    curr -= nums[left];
-                    left++;
+                    curr -= nums[i];
+                    i++;
                 }
-                if (curr == num) ans = max(ans, right - left + 1);
-                right++;
+                if (curr == x)
+                {
+                    if ((j < n - 1 && i == 0) || (j >= n - 1 && i >= j - n + 1 && i <= n))
+                    {
+                        ans = min(ans, j - i + 1);
+                    }
+                }
+              
+                j++;
             }
-            return (ans == INT_MIN) ? -1 : nums.size() - ans;
+            return (ans == INT_MAX) ? -1 : ans;
         }
 };
