@@ -3,8 +3,8 @@ class Solution
     public:
         bool isSubsequence(string s, string t)
         {
-            int m=s.size();
-            int n=t.size();
+            int m = s.size();
+            int n = t.size();
             int L[m + 1][n + 1];
 
             for (int i = 0; i <= m; i++)
@@ -21,6 +21,6 @@ class Solution
                         L[i][j] = max(L[i - 1][j], L[i][j - 1]);
                 }
             }
-            return L[m][n]==s.size();
+            return L[m][n] == s.size();
         }
 };
