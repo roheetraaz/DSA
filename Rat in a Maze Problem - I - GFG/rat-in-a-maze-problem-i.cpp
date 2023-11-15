@@ -26,35 +26,20 @@ public:
             ans.push_back(ds);
             return;
         }
-        if (isvalid(i + 1, j) && vis[i + 1][j] != 1) {
-            ds += 'D';
-            vis[i + 1][j] = 1;
-            solve(i + 1, j, ds, vis);
-            ds = ds.substr(0, ds.size() - 1);
-            vis[i + 1][j] = 0;
+        string k="DLRU";
+        vector<int>row={+1,0,0,-1};
+        vector<int>col={0,-1,+1,0};
+        for(int l=0;l<4;l++){
+            if(isvalid(i+row[l],j+col[l]) && !vis[i+row[l]][j+col[l]]){
+                vis[i+row[l]][j+col[l]]=1;
+                ds+=k[l];
+                solve(i+row[l],j+col[l],ds,vis);
+                vis[i+row[l]][j+col[l]]=0;
+                ds=ds.substr(0,ds.size()-1);
+            }
         }
-        if (isvalid(i, j - 1) && vis[i][j - 1] != 1) {
-            ds += 'L';
-            vis[i][j - 1] = 1;
-            solve(i, j - 1, ds, vis);
-            ds = ds.substr(0, ds.size() - 1);
-            vis[i][j - 1] = 0;
         }
-        if (isvalid(i, j + 1) && vis[i][j + 1] != 1) {
-            ds += 'R';
-            vis[i][j + 1] = 1;
-            solve(i, j + 1, ds, vis);
-            ds = ds.substr(0, ds.size() - 1);
-            vis[i][j + 1] = 0;
-        }
-        if (isvalid(i - 1, j) && vis[i - 1][j] != 1) {
-            ds += 'U';
-            vis[i - 1][j] = 1;
-            solve(i - 1, j, ds, vis);
-            ds = ds.substr(0, ds.size() - 1);
-            vis[i - 1][j] = 0;
-        }
-    }
+    
 
     vector<string> findPath(vector<vector<int>> &m, int k) {
         grid = m;
